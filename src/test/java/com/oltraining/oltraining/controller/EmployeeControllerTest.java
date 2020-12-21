@@ -1,7 +1,7 @@
 package com.oltraining.oltraining.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oltraining.oltraining.model.Employee;
+import com.oltraining.oltraining.dto.EmployeeDTO;
 import com.oltraining.oltraining.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -47,7 +46,7 @@ public class EmployeeControllerTest {
     public void saveEmployeeTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/employees")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(new Employee()))
+                .content(new ObjectMapper().writeValueAsString(new EmployeeDTO()))
                 .accept(MediaType.ALL))
                 .andExpect(status().isOk());
     }

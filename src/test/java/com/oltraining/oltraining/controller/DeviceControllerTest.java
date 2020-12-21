@@ -1,6 +1,7 @@
 package com.oltraining.oltraining.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oltraining.oltraining.dto.DeviceDTO;
 import com.oltraining.oltraining.model.Device;
 import com.oltraining.oltraining.service.DeviceService;
 import org.junit.Before;
@@ -47,7 +48,7 @@ public class DeviceControllerTest {
     public void saveDeviceTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/devices")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(new Device()))
+                .content(new ObjectMapper().writeValueAsString(new DeviceDTO()))
                 .accept(MediaType.ALL))
                 .andExpect(status().isOk());
     }

@@ -1,12 +1,11 @@
 package com.oltraining.oltraining.controller;
 
-import com.oltraining.oltraining.model.Employee;
+import com.oltraining.oltraining.dto.EmployeeDTO;
 import com.oltraining.oltraining.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class EmployeeController {
@@ -19,23 +18,23 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public List<Employee> getAll(){
+    public List<EmployeeDTO> getAll(){
       return employeeService.findAll();
     }
 
     @GetMapping("/employees/{id}")
-    public Optional<Employee> getEmployee(@PathVariable String id){
+    public EmployeeDTO getEmployee(@PathVariable String id){
         return employeeService.findEmployee(id);
     }
 
     @PostMapping("/employees")
-    public void save(@RequestBody Employee employee){
-         employeeService.save(employee);
+    public void save(@RequestBody EmployeeDTO employeeDTO){
+         employeeService.save(employeeDTO);
     }
 
     @PutMapping("/employees/{id}")
-    public void update(@RequestBody Employee employee,@PathVariable String id){
-        employeeService.update(employee,id);
+    public void update(@RequestBody EmployeeDTO employeeDTO,@PathVariable String id){
+        employeeService.update(employeeDTO,id);
     }
     @DeleteMapping("/employees/{id}")
     public void delete(@PathVariable String id){

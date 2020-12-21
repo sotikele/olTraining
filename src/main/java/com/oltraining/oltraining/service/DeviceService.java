@@ -1,7 +1,8 @@
 package com.oltraining.oltraining.service;
 
+import com.oltraining.oltraining.dto.DeviceDTO;
+import com.oltraining.oltraining.mapper.DeviceMapper;
 import com.oltraining.oltraining.model.Device;
-import com.oltraining.oltraining.model.Employee;
 import com.oltraining.oltraining.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,22 +15,31 @@ public class DeviceService {
 
     @Autowired
     private DeviceRepository deviceRepository;
+    @Autowired
+    private DeviceMapper deviceMapper;
 
-    public List<Device> findAll() {
-       return deviceRepository.findAll();
+    public List<DeviceDTO> findAll() {
+        List<Device> devices  = deviceRepository.findAll();
+        return deviceMapper.devicesToDevicesDTO(devices);
+
+
     }
 
-    public Optional<Device> findDevice(String id) {
-        return  deviceRepository.findById(id);
+    public DeviceDTO findDevice(String id) {
+        Optional<Device> device = deviceRepository.findById(id);
+        if(device.isPresent()){
+            return  deviceMapper.deviceToDeviceDTO(device.get());
+        }
+        return null;
     }
 
-    public void save(Device device) {
-        deviceRepository.save(device);
+    public void save(DeviceDTO deviceDTO) {
+        deviceRepository.save(deviceMapper.deviceDTOToDevice(deviceDTO));
     }
 
-    public void update(Device device, String id) {
+    public void update(DeviceDTO deviceDTO, String id) {
         deviceRepository.deleteById(id);
-        deviceRepository.save(device);
+        deviceRepository.save(deviceMapper.deviceDTOToDevice(deviceDTO));
     }
 
     public void delete(String id) {
